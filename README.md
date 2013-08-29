@@ -2,6 +2,10 @@
 
 timings.py caluclates the average request times for a set of urls, broken down to **dns lookup** time, **tcp connection** time, **ssl handshake** time, **processing** time and **transfer** time.
 
+## Requirements
+
+Python and pip. 
+
 ## Installation
 
 ```bash
