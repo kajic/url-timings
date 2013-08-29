@@ -68,5 +68,4 @@ Options:
   -u --urls=URLS          path to urls file (one url per line)
   -c --fetch-count=COUNT  number of times to fetch each url [default: 5]
   -p --parallel           do requests in parallel
-"""
 ```
