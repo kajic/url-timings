@@ -69,7 +69,7 @@ def format(timings):
         return [
             url[:100],
             timing['time_namelookup']-timing['time_redirect'], # dns
-            timing['time_connect']-timing['time_namelookup'], # con
+            timing['time_connect']-timing['time_namelookup'], # tcp_con
             ssl_con,
             timing['time_starttransfer']-timing['time_pretransfer'], # calc
             timing['time_total']-timing['time_starttransfer'], # trans
