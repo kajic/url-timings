@@ -8,7 +8,7 @@ Options:
   -h --help               show this help message and exit
   -v --version            show version and exit
   -u --urls=URLS          path to urls file (one url per line)
-  -c --fetch-count=COUNT  number of times to fetch each url [default: 5]
+  -c --fetch-count=COUNT  number of times to fetch each url [default: 1]
   -p --parallel           do requests in parallel
 """
 import sys
@@ -62,25 +62,27 @@ def fetch_avg(url, n):
     results = [job.value for job in jobs]
     return list_of_dict_avg(results)
 
-def format(timings):
-    cols = ['url', 'dns', 'tcp_con', 'ssl_con', 'calc', 'trans', 'total']
-    def row(url, timing):
-        ssl_con = timing['time_appconnect']-timing['time_connect'] if timing['time_appconnect'] else 0
+def format(stats_list):
+    cols = ['url', 'sizeu', 'sized', 'dns', 'tcp_con', 'ssl_con', 'calc', 'trans', 'total']
+    def row(url, stats):
+        ssl_con = stats['time_appconnect']-stats['time_connect'] if stats['time_appconnect'] else 0
         return [
             url[:100],
-            timing['time_namelookup']-timing['time_redirect'], # dns
-            timing['time_connect']-timing['time_namelookup'], # tcp_con
+            stats['size_request']+stats['size_upload'], # sizeu
+            stats['size_download']+stats['size_header'], # sized
+            stats['time_namelookup']-stats['time_redirect'], # dns
+            stats['time_connect']-stats['time_namelookup'], # tcp_con
             ssl_con,
-            timing['time_starttransfer']-timing['time_pretransfer'], # calc
-            timing['time_total']-timing['time_starttransfer'], # trans
-            timing['time_total']
+            stats['time_starttransfer']-stats['time_pretransfer'], # calc
+            stats['time_total']-stats['time_starttransfer'], # trans
+            stats['time_total']
         ]
-    rows = [row(url, timing) for url, timing in timings]
+    rows = [row(url, stats) for url, stats in stats_list]
     return tabulate(rows, cols, tablefmt="grid")
 
-timings = []
+stats = []
 for url in urls(urls_filename):
-    timings.append((url, fetch_avg(url, fetch_count)))
+    stats.append((url, fetch_avg(url, fetch_count)))
 
 print ""
-print format(timings)
+print format(stats)
