@@ -65,7 +65,7 @@ timings.py uses [curl](http://curl.haxx.se/) to make requests and generate timin
 
 
 ### Options
-```doc
+```
 Usage:
   timings.py [--urls=URLS] [--fetch-count=COUNT] [--parallel]
   timings.py --version
@@ -73,7 +73,7 @@ Usage:
 Options:
   -h --help               show this help message and exit
   -v --version            show version and exit
-  -u --urls=URLS          path to urls file (one url per line)
-  -c --fetch-count=COUNT  number of times to fetch each url [default: 1]
-  -p --parallel           do requests in parallel
+  -u --urls=URLS          path to urls file
+  -c --fetch-count=COUNT  number of times to fetch each url, for averaging purposes [default: 1]
+  -p --parallel           when -c > 1, do requests in parallel [default: False]
 ```
