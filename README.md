@@ -1,6 +1,6 @@
-# timings.py
+# url-timings
 
-timings.py records the average request times for a set of urls, broken down to **dns lookup** time, **tcp connection** time, **ssl handshake** time, **processing** time and **transfer** time. Upload and download sizes for all requests are also recorded.
+url-timings records the average request times for a set of urls, broken down to **dns lookup** time, **tcp connection** time, **ssl handshake** time, **processing** time and **transfer** time. Upload and download sizes for all requests are also recorded.
 
 ## Requirements
 
